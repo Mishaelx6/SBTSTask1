@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HR Management Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-primary/10 bg-white dark:bg-background-dark hidden lg:flex flex-col h-screen sticky top-0">
+<div class="p-6 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-icons text-white text-xl">corporate_fare</span>
+</div>
+<span class="text-xl font-bold tracking-tight">NexusHR</span>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-xl font-medium" href="#">
+<span class="material-icons">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-primary/5 text-slate-500 dark:text-slate-400 rounded-xl transition-all" href="#">
+<span class="material-icons">groups</span>
+                Employees
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-primary/5 text-slate-500 dark:text-slate-400 rounded-xl transition-all" href="#">
+<span class="material-icons">payments</span>
+                Payroll
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-primary/5 text-slate-500 dark:text-slate-400 rounded-xl transition-all" href="#">
+<span class="material-icons">event_note</span>
+                Leave Requests
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-primary/5 text-slate-500 dark:text-slate-400 rounded-xl transition-all" href="#">
+<span class="material-icons">assessment</span>
+                Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-primary/5 text-slate-500 dark:text-slate-400 rounded-xl transition-all" href="#">
+<span class="material-icons">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="p-6 border-t border-primary/10">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Professional profile picture of male administrator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlxKxELgZFnIb5TPbifXi5RY5jpbILTWQstaQG3ErOo4ckVp50PLYwVSc8PY9zsxOx8RwdeFHbC3eoCduVO9tNc6A1oQvT92M0Jg5LLkhuozHeZL5ty43RqeoleAe3aNqhU5AQ4k7LuDmbzrFj3loFV0xRhNrJyk8tozTTEQVl6keI3HwpOWXOIPZK2QodlNozUuvuEDvNHHI8pZ82AuKYzp3zFZ7cYtGtcANR8A5y69cBfoC7vaQPt835vzqTmUXi8Pr7M5VW3Zsb"/>
+<div>
+<p class="text-sm font-bold">Admin User</p>
+<p class="text-xs text-slate-500">HR Director</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto">
+<!-- Header -->
+<header class="h-20 border-b border-primary/10 bg-white/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between">
+<div>
+<h1 class="text-2xl font-bold">Employee Management</h1>
+<p class="text-xs text-slate-500">Welcome back, monitor your company's health.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary w-64 text-sm" placeholder="Search employees..." type="text"/>
+</div>
+<button class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center relative">
+<span class="material-icons text-slate-500">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 shadow-lg shadow-primary/20">
+<span class="material-icons text-lg">download</span>
+                    Generate Report
+                </button>
+</div>
+</header>
+<div class="p-8 space-y-8 max-w-[1600px] mx-auto">
+<!-- Top Row: Analytics & KPI Carousel -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Department Analytics -->
+<div class="col-span-12 lg:col-span-5 bg-white dark:bg-slate-900 rounded-xl p-6 border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-bold text-lg">Department Breakdown</h3>
+<button class="text-primary text-sm font-medium">View Details</button>
+</div>
+<div class="flex items-center justify-center relative py-4">
+<!-- Simulated Pie Chart -->
+<div class="w-56 h-56 rounded-full border-[18px] border-primary/10 relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-[18px] border-transparent border-t-primary border-r-primary rotate-45"></div>
+<div class="absolute inset-0 rounded-full border-[18px] border-transparent border-l-cyan-500 -rotate-12"></div>
+<div class="text-center">
+<span class="text-3xl font-extrabold">1,240</span>
+<p class="text-xs text-slate-500 uppercase tracking-widest">Total Staff</p>
+</div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-sm text-slate-600 dark:text-slate-400">Engineering (42%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-cyan-500"></div>
+<span class="text-sm text-slate-600 dark:text-slate-400">Marketing (28%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-700"></div>
+<span class="text-sm text-slate-600 dark:text-slate-400">Sales (15%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary/20"></div>
+<span class="text-sm text-slate-600 dark:text-slate-400">HR &amp; Admin (15%)</span>
+</div>
+</div>
+</div>
+<!-- Top Performers Carousel -->
+<div class="col-span-12 lg:col-span-7 bg-white dark:bg-slate-900 rounded-xl p-6 border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-lg">Top Performers <span class="text-primary font-normal text-sm ml-2">Monthly KPIs</span></h3>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded-lg border border-primary/10 flex items-center justify-center hover:bg-primary/5"><span class="material-icons text-sm">chevron_left</span></button>
+<button class="w-8 h-8 rounded-lg border border-primary/10 flex items-center justify-center hover:bg-primary/5"><span class="material-icons text-sm">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Performer Card 1 -->
+<div class="bg-primary/5 dark:bg-primary/10 rounded-xl p-5 border border-primary/20 relative overflow-hidden group">
+<div class="flex flex-col items-center text-center relative z-10">
+<img class="w-20 h-20 rounded-full object-cover mb-4 ring-4 ring-primary/20" data-alt="Portrait of a female business executive" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADZAIQxuhBnI8g2BGqebAhmGPI6U33tVhWR6HNSZI__Uuc_5LIKQa_WcWOmTvGrs5wFeiiN7YxH_gLoHGyhl3g5O51G-mo8ZOBsqVBN-48LH8jPOO2cxRRCv7z1wDMnC9KS8Hm2hLJdQuCsqpg7Ekrk4yFPBQPMUSYWI3yEKBsI_qoHZmVB67_6wNGGph19TnA7Cwc5OxOtBqJ6LHcFFwjnY-MLPPNixRE5voCn4y15jlIp9tpmjqvsmW59v3SJeIpifKqobu88J-z"/>
+<h4 class="font-bold">Sarah Jenkins</h4>
+<p class="text-xs text-slate-500 mb-4">Senior UX Designer</p>
+<div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden mb-2">
+<div class="bg-primary h-full w-[98%]"></div>
+</div>
+<div class="flex justify-between w-full text-[10px] font-bold">
+<span>KPI PROGRESS</span>
+<span class="text-primary">98%</span>
+</div>
+</div>
+<span class="material-icons absolute -top-2 -right-2 text-primary/10 text-7xl select-none">military_tech</span>
+</div>
+<!-- Performer Card 2 -->
+<div class="bg-white dark:bg-slate-800/50 rounded-xl p-5 border border-slate-100 dark:border-slate-800">
+<div class="flex flex-col items-center text-center">
+<img class="w-20 h-20 rounded-full object-cover mb-4 grayscale group-hover:grayscale-0" data-alt="Portrait of a young male professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUey-4JcehEA4smgvmMi9oxuW7CZUNSt_o0aejX1ZrqgElMJn5_TKeSRjOV8EzVdaC_l3yjqqlbIpmVCssm-9hZ55Ia93hKrtFn97IfGtvVbB1P-RikERIJkNMPj0VuCt72Y5HBCl4siJx9ru_w9EB-m79xXJCmkSm830HvbYtn-XDxqWwpVH-PkruJ9oUhMo_ikEi__ltXdEP5BO4M8vgKm43GdKWMYFxIa-MK_f3ZiQX3-zL8ti5YEOT_1ff8FxvbzqqZpWZAYgL"/>
+<h4 class="font-bold">Michael Chen</h4>
+<p class="text-xs text-slate-500 mb-4">Fullstack Developer</p>
+<div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden mb-2">
+<div class="bg-cyan-500 h-full w-[94%]"></div>
+</div>
+<div class="flex justify-between w-full text-[10px] font-bold">
+<span>KPI PROGRESS</span>
+<span class="text-cyan-500">94%</span>
+</div>
+</div>
+</div>
+<!-- Performer Card 3 -->
+<div class="bg-white dark:bg-slate-800/50 rounded-xl p-5 border border-slate-100 dark:border-slate-800">
+<div class="flex flex-col items-center text-center">
+<img class="w-20 h-20 rounded-full object-cover mb-4" data-alt="Portrait of a female office worker" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfIePxUl-3m-u-3n623fbmNXX1dSl-CrmQJS4y-_hU5d5_m7G76ZL8jyUX7FKa5By17HuAM2eJBREpyju5QaDGVHnl6QC06vflo0rYOmLMw4fuJ_BGaFPFsShX7MJBwD-Rt-CPK1QcazSx3x1LJ8xJT_mooROA5a1rnq4K7pcYDrLO88lwrpfHMgY1IpmYDAQsAuh48iGO8rP3H8tKMCFm_60gIXhDi-xEWZ3HzD9C460G6Iwmhnps3NcOdQnBMK7j_-PvEhSbX61d"/>
+<h4 class="font-bold">Elena Rodriguez</h4>
+<p class="text-xs text-slate-500 mb-4">Marketing Specialist</p>
+<div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden mb-2">
+<div class="bg-primary h-full w-[91%]"></div>
+</div>
+<div class="flex justify-between w-full text-[10px] font-bold">
+<span>KPI PROGRESS</span>
+<span class="text-primary">91%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Row: Recent Hires & Anniversaries -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Recent Hires -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-icons text-primary">person_add</span>
+                            Recent Hires
+                        </h3>
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded uppercase">Last 14 Days</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Profile headshot of a male employee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjbPYYfdzwqVdSzamfWug2wMlRPePCCsiHWyNdIszIAkiwgzsDM1mPwSpIUY8D5MIQcrOM2cR93suklKSdOgYItFEenwy55CYaVBLXOp8NEH3bmZPFyRIUp_SrdbjZ4gGRUsQbmyeyYYTZD4euuCheEYBxhxmUasweQItN87OAOh228-CqfqyAKkOiCCgc3Vd4VOpVmQFrDAr7ihh4BbwU1A7p-92uOY9iuI905cyvlGOk99WpAAMVfWH_7bTTv5fxEZjm3tNDzKDX"/>
+<div>
+<p class="text-sm font-bold">James Wilson</p>
+<p class="text-[11px] text-slate-500">DevOps Engineer • Engineering</p>
+</div>
+</div>
+<p class="text-xs font-medium text-slate-400">Oct 24, 2023</p>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Profile headshot of a female employee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADql_KzWb0V9njD17mEPkJ3P3ZniKZGQiiVN8mmBGc1wtJNMbKpSwfKfMYGcz48MQFbcB7c3SEhkkrAg3S9H52c-S7WE6R9025C5nzl-_Y-5XFl2v1lIli87lhGKWYsBZr5vpvwcJhTtSnsqCVNeA-G-DER9GNQpoU1SInRPbIU538cqI7OIeUdwwi8oNVwyIh90AwNTW1z0ztbvmh5rwXXksS4QO8KY6tfq-1BUCdhHJt3EFQiUcOdnIbGwCGkhITm1TmjxLVKOp-"/>
+<div>
+<p class="text-sm font-bold">Amara Okafor</p>
+<p class="text-[11px] text-slate-500">Product Manager • Product</p>
+</div>
+</div>
+<p class="text-xs font-medium text-slate-400">Oct 22, 2023</p>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center font-bold text-primary">DS</div>
+<div>
+<p class="text-sm font-bold">Daniel Smith</p>
+<p class="text-[11px] text-slate-500">Legal Counsel • Operations</p>
+</div>
+</div>
+<p class="text-xs font-medium text-slate-400">Oct 19, 2023</p>
+</div>
+</div>
+</div>
+<!-- Upcoming Anniversaries -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-icons text-primary">cake</span>
+                            Work Anniversaries
+                        </h3>
+<button class="text-xs font-semibold text-primary hover:underline">Schedule Cards</button>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800">
+<div class="text-center bg-white dark:bg-slate-900 w-12 py-2 rounded-lg border border-slate-200 dark:border-slate-700">
+<p class="text-[10px] font-bold text-slate-500 uppercase">Nov</p>
+<p class="text-lg font-extrabold text-primary leading-none">05</p>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Sophia Martinez</p>
+<p class="text-xs text-slate-500">Celebrating 3 Years</p>
+</div>
+<div class="flex -space-x-2">
+<span class="material-icons text-primary/40 text-2xl">celebration</span>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800">
+<div class="text-center bg-white dark:bg-slate-900 w-12 py-2 rounded-lg border border-slate-200 dark:border-slate-700">
+<p class="text-[10px] font-bold text-slate-500 uppercase">Nov</p>
+<p class="text-lg font-extrabold text-primary leading-none">12</p>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Robert King</p>
+<p class="text-xs text-slate-500">Celebrating 5 Years</p>
+</div>
+<span class="material-icons text-primary/40 text-2xl">workspace_premium</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Attendance & Leave Requests -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/5 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-primary/5 flex items-center justify-between">
+<div>
+<h3 class="font-bold text-lg">Daily Operations</h3>
+<p class="text-xs text-slate-500">Attendance and active leave requests for Oct 27, 2023</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Attendance</button>
+<button class="px-4 py-2 bg-primary text-white rounded-lg text-xs font-semibold shadow-md shadow-primary/20">Leave Requests</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 text-xs font-bold uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">Employee</th>
+<th class="px-6 py-4">Type</th>
+<th class="px-6 py-4">Duration</th>
+<th class="px-6 py-4">Reason</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">LW</div>
+<div>
+<p class="text-sm font-bold">Liam White</p>
+<p class="text-[10px] text-slate-500">Marketing Dept</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Sick Leave</td>
+<td class="px-6 py-4 text-sm">2 Days (Oct 27 - 28)</td>
+<td class="px-6 py-4 text-sm text-slate-500 max-w-xs truncate">Medical checkup and recovery...</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-500 text-[10px] font-bold rounded-full uppercase">Pending</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white flex items-center justify-center transition-all">
+<span class="material-icons text-sm">check</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all">
+<span class="material-icons text-sm">close</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Profile headshot of a female professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYyXmlS4zuSxhSuQQGxfqGPpUmORZZL0OZDAuJwgB4QHMjcguzNEPJZOXPv61rzRFBY-ti7Fbfylysf19bod1MxsZOHRTTS6lA8YQ5Id_r90_HzZivZrmwq1LGtW9JDc8-9vCcuNNJukQUVzQUMzkw7WZ5iYOP_UJZgirYPdYmWCz7xXzuvV1lWTJOqDyMORguyPqBvzbLy0STo6QPoEYPdPIgiaV0SMtKNkL9LsfsbFC-iI0HcvEyWx1Ftp-x7rOfjDHVWvMJTkZA"/>
+<div>
+<p class="text-sm font-bold">Emma Wilson</p>
+<p class="text-[10px] text-slate-500">Design Team</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Annual Leave</td>
+<td class="px-6 py-4 text-sm">5 Days (Nov 01 - 05)</td>
+<td class="px-6 py-4 text-sm text-slate-500 max-w-xs truncate">Family vacation to Italy</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-500 text-[10px] font-bold rounded-full uppercase">Approved</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="w-8 h-8 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center">
+<span class="material-icons text-sm">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">MK</div>
+<div>
+<p class="text-sm font-bold">Mark Kovacs</p>
+<p class="text-[10px] text-slate-500">Sales Dept</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Work from Home</td>
+<td class="px-6 py-4 text-sm">1 Day (Today)</td>
+<td class="px-6 py-4 text-sm text-slate-500 max-w-xs truncate">Attending home maintenance</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full uppercase">Auto-Approved</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="w-8 h-8 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center">
+<span class="material-icons text-sm">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-primary/5 flex justify-center">
+<button class="text-sm font-bold text-primary hover:bg-primary/5 px-6 py-2 rounded-lg transition-all">View All Activity</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

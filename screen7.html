@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Operational Project Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex font-display">
+<!-- Sidebar (Simplified for context) -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 hidden lg:flex flex-col bg-white dark:bg-background-dark/50">
+<div class="p-6">
+<div class="flex items-center gap-3 text-primary font-bold text-xl">
+<span class="material-icons-round">analytics</span>
+<span>OpsCore</span>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-icons-round text-[20px]">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-[20px]">layers</span>
+<span class="font-medium text-sm">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-[20px]">groups</span>
+<span class="font-medium text-sm">Resources</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-[20px]">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 bg-slate-100 dark:bg-slate-800 rounded-lg">
+<img class="w-8 h-8 rounded-full border border-slate-300 dark:border-slate-600" data-alt="User profile picture professional male" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfRxUGaLzmQxYt5WyKhDr1K00plK-TgE8HxO5O_qqFHUO64xoUukXfBehr7aJThej2GvGgIHPjYEmT1WT9wl5q3n4eOqJeFaUezYc-C3uTq65oEytibCEOdEMpgw3gwMxfG4fFYX0t_SOEEJAZhPMmrqJ0Z14calGtofNU1CCMLnA2HbvBnr-1jigIXFcKD5YLYCuLqC4-IiTWq2zrZoi1FW_nVqq3ukrfF_Y6zR40YxLCtvVF9uaUgZkDf_fjUjYV_LpinSDgmR_8"/>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold truncate">Alex Sterling</p>
+<p class="text-[10px] text-slate-500 truncate uppercase tracking-wider">Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 bg-white dark:bg-background-dark/80 backdrop-blur-md z-10">
+<div class="flex items-center gap-4">
+<div class="flex items-center text-xs text-slate-400">
+<span>Operations</span>
+<span class="material-icons-round text-[14px] mx-2 leading-none">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Project Tracker</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:block">
+<span class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-full pl-10 pr-4 py-1.5 text-sm w-64 focus:ring-2 focus:ring-primary/50 transition-all outline-none" placeholder="Search initiatives..." type="text"/>
+</div>
+<button class="relative text-slate-500 hover:text-primary transition-colors">
+<span class="material-icons-round">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>
+</button>
+</div>
+</header>
+<!-- View Controls Bar -->
+<div class="px-8 py-6 flex flex-wrap items-center justify-between gap-4">
+<div>
+<h1 class="text-2xl font-extrabold tracking-tight">Major Initiatives</h1>
+<p class="text-slate-500 text-sm mt-1">Monitoring 24 active operational cycles.</p>
+</div>
+<div class="flex items-center gap-4">
+<!-- Toggle Switch -->
+<div class="bg-slate-200 dark:bg-slate-800 p-1 rounded-lg flex items-center">
+<button class="flex items-center gap-2 px-4 py-1.5 rounded-md bg-white dark:bg-slate-700 shadow-sm text-sm font-semibold transition-all">
+<span class="material-icons-round text-[18px]">view_kanban</span>
+                        Kanban
+                    </button>
+<button class="flex items-center gap-2 px-4 py-1.5 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 text-sm font-semibold transition-all">
+<span class="material-icons-round text-[18px]">reorder</span>
+                        Gantt
+                    </button>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg flex items-center gap-2 text-sm font-bold transition-transform active:scale-95">
+<span class="material-icons-round text-[18px]">add</span>
+                    New Project
+                </button>
+</div>
+</div>
+<!-- Kanban Board Container -->
+<div class="flex-1 overflow-x-auto px-8 pb-8 custom-scrollbar">
+<div class="flex gap-6 h-full min-w-max">
+<!-- Column: Backlog -->
+<div class="w-80 flex flex-col h-full bg-slate-100/50 dark:bg-slate-800/20 rounded-xl p-2">
+<div class="flex items-center justify-between p-3 mb-2">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-sm tracking-wide uppercase text-slate-500 dark:text-slate-400">Backlog</h3>
+<span class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px] px-2 py-0.5 rounded-full font-bold">4</span>
+</div>
+<button class="text-slate-400 hover:text-primary"><span class="material-icons-round text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-3 px-1 custom-scrollbar">
+<!-- Card 1 -->
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing group">
+<div class="flex items-start justify-between mb-3">
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">OPS-1024</span>
+<div class="flex -space-x-2">
+<img class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800" data-alt="Female team member profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2b9otS26h62c6LrKeWAoD2Hffg262Rc0R83MgCiAUwww2bhF7tpYegMUYmX3YHkUS_k4WE_qtLuNNSILsxM7YvHBVlE4GdURenO-travqx_ldE4OHAUuJMrUZTgzgecy99QNQ9gO8MGzCCpOAd-C-s5AUmgEQ8L3gvHxVTFKel7q-cEt-wt3aoA0uOHbOrGOKXDEDKJHNLw3Y_I0iJlJ5z_fvqdhew-jx2DM1wDiGqCpLaxtrH63CZ65jarWyMe-9r-ct6vkzisx9"/>
+</div>
+</div>
+<h4 class="text-sm font-bold mb-3 group-hover:text-primary transition-colors">Cloud Migration Phase 2</h4>
+<div class="mb-4">
+<div class="flex justify-between items-center mb-1 text-[11px] font-medium text-slate-400">
+<span>Progress</span>
+<span>0%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 0%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="flex items-center gap-1 text-slate-400 text-[10px]">
+<span class="material-icons-round text-[14px]">event</span> Oct 12
+                                </span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-500">READY</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: In Progress -->
+<div class="w-80 flex flex-col h-full bg-slate-100/50 dark:bg-slate-800/20 rounded-xl p-2">
+<div class="flex items-center justify-between p-3 mb-2">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-sm tracking-wide uppercase text-slate-500 dark:text-slate-400">In Progress</h3>
+<span class="bg-primary/20 text-primary text-[11px] px-2 py-0.5 rounded-full font-bold">3</span>
+</div>
+<button class="text-slate-400 hover:text-primary"><span class="material-icons-round text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-3 px-1 custom-scrollbar">
+<!-- Card 2 -->
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm hover:border-primary/50 transition-all">
+<div class="flex items-start justify-between mb-3">
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">OPS-982</span>
+<div class="flex items-center gap-1">
+<span class="text-[10px] text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded">ON TRACK</span>
+</div>
+</div>
+<h4 class="text-sm font-bold mb-3">Customer Portal Redesign</h4>
+<div class="mb-4">
+<div class="flex justify-between items-center mb-1 text-[11px] font-medium text-slate-400">
+<span class="flex items-center gap-1">
+<img class="w-4 h-4 rounded-full" data-alt="Male team lead profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzjxOPZMQTxjUlCU0_H7vNfj9hQ1eUHKePMt8o00HYTloSTSeLkYUzOcGO1jCRANW9ai5CcEYC945pAh0cgrOtcJH4YKo9RxHzsShPAwASgbDuIskaNRS__vxIOkTY9ENB-Q5ynclOFp04QmArm0vouW07jCtgaz3D3OQ3hziSk9nQmvo6MZKa4D_xRNMPPwhRP0NFqfg7ELe7sCYsQ5mQ9tN4O28qBzcmeKAYx0jYwo3qrYuFzcG8EidYkER3ayvXrkR_PY9c3EU"/>
+                                        Mark Jensen
+                                    </span>
+<span>65%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700/50 pt-3">
+<span class="flex items-center gap-1 text-slate-400 text-[10px]">
+<span class="material-icons-round text-[14px]">chat_bubble_outline</span> 12
+                                </span>
+<span class="flex items-center gap-1 text-slate-400 text-[10px]">
+<span class="material-icons-round text-[14px]">attachment</span> 4
+                                </span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl border-l-4 border-l-amber-500 border border-slate-200 dark:border-slate-700/50 shadow-sm">
+<div class="flex items-start justify-between mb-3">
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">OPS-1105</span>
+<span class="text-[10px] text-amber-500 font-bold bg-amber-500/10 px-2 py-0.5 rounded">AT RISK</span>
+</div>
+<h4 class="text-sm font-bold mb-3">Legacy DB Sanitization</h4>
+<div class="mb-4">
+<div class="flex justify-between items-center mb-1 text-[11px] font-medium text-slate-400">
+<span class="flex items-center gap-1">
+<img class="w-4 h-4 rounded-full" data-alt="Lead engineer profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK5HEDxYU734SoTRyl2eiv-fyvzigc0Xh3RMLmGschFGELIN1HNWNYVc29sLC7QPfecTYn7lwkhOJlDl4ia7fR-TZ9Adq3l2q38apR7toyp32PSyKqmk1dSzGfsvqKNv5i62lUcF0CCzF_ltQ_cD65ERpnJEN3n5U90OV8o6uu4oUh9OjLXyJvG9IMgmOMIKbpK_E_gOL5LOTvO89ATkqA8VgMlwUIbDEMrTCkIG2OhJX3IbiZ3x9qynAuTrd6_diQP4KVJwC-9thB"/>
+                                        Sarah Chen
+                                    </span>
+<span>32%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full rounded-full" style="width: 32%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Testing -->
+<div class="w-80 flex flex-col h-full bg-slate-100/50 dark:bg-slate-800/20 rounded-xl p-2">
+<div class="flex items-center justify-between p-3 mb-2">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-sm tracking-wide uppercase text-slate-500 dark:text-slate-400">Testing</h3>
+<span class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px] px-2 py-0.5 rounded-full font-bold">2</span>
+</div>
+<button class="text-slate-400 hover:text-primary"><span class="material-icons-round text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-3 px-1 custom-scrollbar">
+<!-- Card 4 -->
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl border-l-4 border-l-red-500 border border-slate-200 dark:border-slate-700/50 shadow-sm">
+<div class="flex items-start justify-between mb-3">
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">OPS-884</span>
+<span class="text-[10px] text-red-500 font-bold bg-red-500/10 px-2 py-0.5 rounded">DELAYED</span>
+</div>
+<h4 class="text-sm font-bold mb-3">Security Patch v4.2</h4>
+<div class="mb-4">
+<div class="flex justify-between items-center mb-1 text-[11px] font-medium text-slate-400">
+<span class="flex items-center gap-1">
+<img class="w-4 h-4 rounded-full" data-alt="Security specialist profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWrIMBF8PPEljmig25CRvte5p6odqam9obaaNd8l7r7yqaM8QxbhYFbZi3njPTSg8j_z82qXOyOqPoEryhfNWOZCNVmekBR-J0u7Fu6kn-Uu25CF5K0cvS4q1AzxdmS2yroP5vlr22sri-PepZ0dL9yYenRGzu1CN3-EP8G1HtG2hH54akEMnfq6ORvQ8Fj4yvz3H9RcJYuLOVKaJRjDIkYRNtCwuiPwjhnsoQwdUcYwdybmU255hOD6jLDcDBTPoEuNUitMpkO1xh"/>
+                                        David Roe
+                                    </span>
+<span>88%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-red-500 h-full rounded-full" style="width: 88%"></div>
+</div>
+</div>
+<div class="text-[10px] text-red-400 flex items-center gap-1">
+<span class="material-icons-round text-[14px]">warning</span>
+                                Blocked by API latency issues
+                            </div>
+</div>
+</div>
+</div>
+<!-- Column: Completed -->
+<div class="w-80 flex flex-col h-full bg-slate-100/50 dark:bg-slate-800/20 rounded-xl p-2">
+<div class="flex items-center justify-between p-3 mb-2">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-sm tracking-wide uppercase text-slate-500 dark:text-slate-400">Completed</h3>
+<span class="bg-emerald-500/20 text-emerald-500 text-[11px] px-2 py-0.5 rounded-full font-bold">12</span>
+</div>
+<button class="text-slate-400 hover:text-primary"><span class="material-icons-round text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-3 px-1 custom-scrollbar">
+<!-- Card 5 -->
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm opacity-70 hover:opacity-100 transition-opacity">
+<div class="flex items-start justify-between mb-3">
+<span class="text-[10px] font-bold text-slate-400 bg-slate-100 dark:bg-slate-700/50 px-2 py-0.5 rounded">OPS-901</span>
+<span class="material-icons-round text-emerald-500 text-[18px]">check_circle</span>
+</div>
+<h4 class="text-sm font-bold mb-3 text-slate-500 line-through">AWS Region Expansion</h4>
+<div class="flex items-center justify-between text-[10px] text-slate-400">
+<span>Completed Sep 28</span>
+<span class="flex items-center gap-1">
+<img class="w-4 h-4 rounded-full" data-alt="Operations manager profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1jPuffBGgQCB77gmcnsagMQ0Ab5_WndON9hRpdcgAVA0645Yo3vdL2P-UzhaxCU80RX3AZhlpARIQ6JocYo-M0FZ75OahH0wC7N_KeRzeqAKOT_BcjIS85u3Vpa0zofy965QK6FuInNt9ESPkmvjmat-LDKujkMR-f4XkgD7dKZNQ16VZqB6pzLYlg9BwA9vh3-QhNJ9YA4_uHUDLQmNVvsMC6nZbh0bwXCO7yKfv52cbI8lEiDSqtDgy_fDtcSL5RuRx2V2WDAMk"/>
+                                    Elena Wright
+                                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Add New Column -->
+<div class="w-80 flex flex-col h-full border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl p-6 items-center justify-center group cursor-pointer hover:border-primary/50 hover:bg-primary/5 transition-all">
+<span class="material-icons-round text-slate-300 group-hover:text-primary mb-2 text-[32px]">add_circle_outline</span>
+<p class="text-sm font-bold text-slate-400 group-hover:text-primary">Add Column</p>
+</div>
+</div>
+</div>
+<!-- Gantt View Preview (Overlay state style) -->
+<div class="hidden absolute inset-x-0 bottom-0 top-[144px] bg-background-light dark:bg-background-dark z-20 flex-col px-8">
+<!-- Simplified Gantt Mock -->
+<div class="flex flex-col h-full">
+<div class="flex items-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-t-xl">
+<div class="w-64 p-4 border-r border-slate-200 dark:border-slate-700 font-bold text-sm">Project Name</div>
+<div class="flex-1 flex overflow-x-auto">
+<div class="flex-1 min-w-[100px] p-4 text-center border-r border-slate-100 dark:border-slate-700/50 text-[10px] font-bold uppercase text-slate-500">Oct 1-7</div>
+<div class="flex-1 min-w-[100px] p-4 text-center border-r border-slate-100 dark:border-slate-700/50 text-[10px] font-bold uppercase text-slate-500">Oct 8-14</div>
+<div class="flex-1 min-w-[100px] p-4 text-center border-r border-slate-100 dark:border-slate-700/50 text-[10px] font-bold uppercase text-slate-500">Oct 15-21</div>
+<div class="flex-1 min-w-[100px] p-4 text-center border-r border-slate-100 dark:border-slate-700/50 text-[10px] font-bold uppercase text-slate-500">Oct 22-28</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto bg-white/50 dark:bg-slate-900/50 border-x border-b border-slate-200 dark:border-slate-700 rounded-b-xl">
+<!-- Row 1 -->
+<div class="flex items-center border-b border-slate-100 dark:border-slate-800">
+<div class="w-64 p-4 border-r border-slate-100 dark:border-slate-800 text-sm">Cloud Migration</div>
+<div class="flex-1 relative h-12 flex items-center">
+<div class="absolute left-[20%] w-[40%] h-6 bg-primary/20 border border-primary/40 rounded-full flex items-center px-3">
+<span class="text-[9px] font-bold text-primary truncate">Infrastructure Setup</span>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center border-b border-slate-100 dark:border-slate-800">
+<div class="w-64 p-4 border-r border-slate-100 dark:border-slate-800 text-sm">Customer Portal</div>
+<div class="flex-1 relative h-12 flex items-center">
+<div class="absolute left-[45%] w-[35%] h-6 bg-emerald-500/20 border border-emerald-500/40 rounded-full flex items-center px-3">
+<span class="text-[9px] font-bold text-emerald-500 truncate">UI/UX Implementation</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Project Details Quick-View (Right Sidebar Overlay - Hidden by default) -->
+<div class="hidden fixed right-0 top-0 bottom-0 w-[450px] bg-white dark:bg-slate-900 shadow-2xl z-50 border-l border-slate-200 dark:border-slate-800 flex flex-col">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<h2 class="font-bold text-lg uppercase tracking-tight">Project Details</h2>
+<button class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+<span class="material-icons-round">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-6">
+<div class="mb-8">
+<label class="text-[10px] font-extrabold uppercase text-slate-400 mb-2 block">Initiative</label>
+<h3 class="text-2xl font-bold">Cloud Migration Phase 2</h3>
+<div class="flex gap-2 mt-4">
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase">Backlog</span>
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full text-xs font-bold uppercase">Priority High</span>
+</div>
+</div>
+<div class="space-y-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+<span class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Owner</span>
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full" data-alt="Project lead profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmcUU-bXC2xai-GrvRPfW-dWbtLPL3hlEvXFwrSOUc5iaASETUHdi1Pz9jxu7xmk96gx-0iHFZlAbff25p6gEZc9EFv0gbvElorC9Swj-Yo0wShji8gF138uUU0DBgrHc2svISDAYoQ14cKetRSZ-nJi3i8eKFcI6MDlqL4p4WjLNEpVnlHj5aILyHshF4Rbi0KeEvQVcb1vxBCKzA8elLVIAKGkkndNx-1ZXW9Fin03EIMfaeEpvtRuM2u9LYrJDAOVG3qM3GSs29"/>
+<span class="text-sm font-semibold">Jane Doe</span>
+</div>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+<span class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Due Date</span>
+<div class="flex items-center gap-2">
+<span class="material-icons-round text-primary text-[18px]">event</span>
+<span class="text-sm font-semibold">Oct 30, 2023</span>
+</div>
+</div>
+</div>
+<div>
+<span class="text-[10px] text-slate-400 uppercase font-bold block mb-2">Description</span>
+<p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Secondary phase of the global infrastructure migration project. Focusing on European data center replication and low-latency API endpoints for the EMEA region.
+                    </p>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-slate-200 dark:border-slate-800 flex gap-3">
+<button class="flex-1 bg-primary text-white py-2.5 rounded-lg font-bold text-sm">Save Changes</button>
+<button class="px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-bold">Cancel</button>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer Relationship Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "card-dark": "#1a2431",
+                        "border-dark": "#2d3a4b",
+                        "text-muted": "#94a3b8",
+                        "success": "#10b981",
+                        "warning": "#f59e0b",
+                        "danger": "#ef4444"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2d3a4b;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #3d4b5c;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-20 flex flex-col items-center py-8 bg-white dark:bg-card-dark border-r border-slate-200 dark:border-border-dark z-50">
+<div class="mb-10">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-icons text-white">insights</span>
+</div>
+</div>
+<nav class="flex flex-col gap-8 flex-1">
+<a class="p-3 text-primary bg-primary/10 rounded-xl transition-all" href="#">
+<span class="material-icons">dashboard</span>
+</a>
+<a class="p-3 text-slate-400 hover:text-primary transition-all" href="#">
+<span class="material-icons">people</span>
+</a>
+<a class="p-3 text-slate-400 hover:text-primary transition-all" href="#">
+<span class="material-icons">assessment</span>
+</a>
+<a class="p-3 text-slate-400 hover:text-primary transition-all" href="#">
+<span class="material-icons">settings</span>
+</a>
+</nav>
+<div class="mt-auto">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="User profile avatar of administrator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiyAY6d_0avTthv_l9qxXf0DVoMEXLsQ8Bu_HTZ-mzXWJVXd1J-_BmQPkNJm0rMTz36qYctE7VI5Aj8zXpBwAQ7bmSV4jfD0e0oh6xF4lKX15W3wLtAjqE_N13xwTnUs5dDCNSnuCew7QlzNq6KkINSp1BoqxceXSB-hqzb3txjFxaAW1i1S8cLGNWqQVdns-GVHQrsp7Qua4f7t61k2GgBlzLzLxVF9qrOZlo6T7MK5i4w45wep2BYNIr3pR8GLzZV871zlIFEaoD"/>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="pl-20 min-h-screen">
+<!-- Top Header -->
+<header class="h-20 px-8 flex items-center justify-between border-b border-slate-200 dark:border-border-dark sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-40">
+<div>
+<h1 class="text-xl font-bold tracking-tight">Customer Relationship Insights</h1>
+<p class="text-xs text-text-muted">Last sync: 2 minutes ago</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark px-3 py-1.5 rounded-lg text-sm">
+<span class="material-icons text-sm">calendar_today</span>
+<span>Last 30 Days</span>
+<span class="material-icons text-sm">expand_more</span>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2 transition-all">
+<span class="material-icons text-sm">file_download</span>
+                    Export Data
+                </button>
+</div>
+</header>
+<div class="p-8">
+<!-- Metric Scorecards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-icons text-primary">account_balance_wallet</span>
+</div>
+<span class="text-danger text-xs font-bold flex items-center">
+<span class="material-icons text-xs">trending_up</span>
+                            +4.2%
+                        </span>
+</div>
+<h3 class="text-text-muted text-sm font-medium">Customer Acquisition Cost</h3>
+<p class="text-3xl font-bold mt-1">$482.15</p>
+<p class="text-[10px] text-text-muted mt-2">Target: &lt; $450.00</p>
+</div>
+<div class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-icons text-primary">group_remove</span>
+</div>
+<span class="text-success text-xs font-bold flex items-center">
+<span class="material-icons text-xs">trending_down</span>
+                            -1.8%
+                        </span>
+</div>
+<h3 class="text-text-muted text-sm font-medium">Churn Rate</h3>
+<p class="text-3xl font-bold mt-1">2.4%</p>
+<p class="text-[10px] text-text-muted mt-2">Previous Period: 4.2%</p>
+</div>
+<div class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-icons text-primary">shopping_bag</span>
+</div>
+<span class="text-success text-xs font-bold flex items-center">
+<span class="material-icons text-xs">trending_up</span>
+                            +12.5%
+                        </span>
+</div>
+<h3 class="text-text-muted text-sm font-medium">Avg. Order Value</h3>
+<p class="text-3xl font-bold mt-1">$1,240</p>
+<p class="text-[10px] text-text-muted mt-2">Growth vs Last Month</p>
+</div>
+<div class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-icons text-primary">thumb_up</span>
+</div>
+<span class="text-success text-xs font-bold flex items-center">
+<span class="material-icons text-xs">trending_up</span>
+                            +5 pts
+                        </span>
+</div>
+<h3 class="text-text-muted text-sm font-medium">Net Promoter Score</h3>
+<p class="text-3xl font-bold mt-1">74</p>
+<p class="text-[10px] text-text-muted mt-2">Benchmark: 65</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- CLV Leaderboard -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<div class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm overflow-hidden flex flex-col">
+<div class="p-6 border-b border-slate-200 dark:border-border-dark flex justify-between items-center">
+<h2 class="font-bold text-lg">CLV Leaderboard</h2>
+<span class="material-icons text-text-muted cursor-pointer hover:text-white">more_vert</span>
+</div>
+<div class="flex-1 p-6 space-y-4">
+<!-- Leaderboard Item -->
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Customer" class="w-full h-full object-cover" data-alt="Customer portrait for CLV leaderboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE6-I0AvpUhYskCvFleJDEqyBHpyC0A_oUZbyUaphKvvIAkQE3t8s6FoCjYB0IjgX-JHEMOSfjR9RmIAMEOe5yYxAjJ97GWBxAk3-NnkvTddWYj8KtKHdfNm-VuoBXeAKXPE2LTkCqjge1eOntAMtPH5fitAK2-rUUcWPqbXyJNV5N2OR3MyqQcdnW-TvyYlSP94AeNHIyLkF3TNX2jUOzjqBLtxMCXrbdxIKLWcW7nOwhGxU8LUriJpLzpuhiA0d4Rwfp-afdpaHV"/>
+</div>
+<div>
+<h4 class="text-sm font-bold">Acme Corp</h4>
+<span class="text-[10px] px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-wider font-bold">Enterprise</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-primary">$142,500</p>
+<p class="text-[10px] text-text-muted">Lifetime</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Customer" class="w-full h-full object-cover" data-alt="Customer portrait for CLV leaderboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMajbIZ4uylYpaXUscjCSZzPIIpPNB51XRsR3XBwK9_aa18d1jpn1xTUfE505UpBqhgs6ERCfxhxK8NGtQkgEdmybxUs_0XjN8epS-SbPSR75srDGTiou7ytVIi0l8bs9k5g2l4bqTdfT9mytiDuvEldRC2SMtr5eTi5yDSNGbiVKFz4S3B7rVE-ooxOTARo2Fp89bsfUm5TING9V_qG2F7L3CTcnggfE8XeTdptUh06BJDXrsPhJUhUNUYRlHPaMTEF3nNK5AgMED"/>
+</div>
+<div>
+<h4 class="text-sm font-bold">Stellar Dynamics</h4>
+<span class="text-[10px] px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-wider font-bold">Enterprise</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-primary">$98,200</p>
+<p class="text-[10px] text-text-muted">Lifetime</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Customer" class="w-full h-full object-cover" data-alt="Customer portrait for CLV leaderboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFqR7PMSvjZioeM8ODCMn59ew_Aaw9NiRetFj7tRKBT6PxWpQWuK9Kl6eoK_ExyMi-FZHw3OxhJprWj1BKmAiNMR_FB3fTotoynWAvWVIkC2l_ENZ15Iwn6ixHK4Cf7GLXxVZHqPOfwgA0InrwJ89k_egiHnH52YfLPc-gFWE_FLyijc6U-BGelZOvPDhWfuxm5shdaf5fzm9PsfeEsa4lf6wQRvRhJA0LxYUme-gQpa3PJsBNIhmZaWYnB2Xwp9J7Yk7K4xEa9_VD"/>
+</div>
+<div>
+<h4 class="text-sm font-bold">Globex Solutions</h4>
+<span class="text-[10px] px-2 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-400 rounded-full uppercase tracking-wider font-bold">Mid-Market</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-primary">$64,150</p>
+<p class="text-[10px] text-text-muted">Lifetime</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Customer" class="w-full h-full object-cover" data-alt="Customer portrait for CLV leaderboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqPzWFNgAFa8A_ijsjDxgw_ZBub5ab2tuXrHdYVRBPyyyEZQ-tG1LKX_T_0L_VvkZzGBiUyYZUaM9Z9KZKYHgVFfXADzHOzMemtVEVXVezBpehm3qBHYNvZVNDdnGGF1ECK0w-dUFV8-btAMWs2-3dMfKu4xfGAEjvqbd7DfGrIY5ASDuWOW2hqNva4qaH8OUMTuRiGZDnxAVaUTVfMRcn3uMWxt9K7hlNbi-xZCiCT4eIbkwg7L2hSDfQx1PGYs97s7EWrdVxFxpT"/>
+</div>
+<div>
+<h4 class="text-sm font-bold">Virtucon Inc</h4>
+<span class="text-[10px] px-2 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-400 rounded-full uppercase tracking-wider font-bold">Mid-Market</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-primary">$42,900</p>
+<p class="text-[10px] text-text-muted">Lifetime</p>
+</div>
+</div>
+</div>
+<button class="w-full py-4 text-xs font-bold text-primary hover:bg-primary/5 transition-colors border-t border-slate-200 dark:border-border-dark uppercase tracking-widest">
+                            View All Customers
+                        </button>
+</div>
+<!-- Sentiment Overview Mini-Card -->
+<div class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm p-6">
+<h2 class="font-bold text-lg mb-6">Sentiment Mix</h2>
+<div class="flex items-center justify-between gap-4">
+<div class="relative w-24 h-24">
+<svg class="w-full h-full" viewbox="0 0 36 36">
+<circle class="stroke-slate-200 dark:stroke-slate-700" cx="18" cy="18" fill="none" r="16" stroke-width="4"></circle>
+<circle class="stroke-success" cx="18" cy="18" fill="none" r="16" stroke-dasharray="65, 100" stroke-linecap="round" stroke-width="4"></circle>
+<circle class="stroke-warning" cx="18" cy="18" fill="none" r="16" stroke-dasharray="20, 100" stroke-dashoffset="-65" stroke-linecap="round" stroke-width="4"></circle>
+<circle class="stroke-danger" cx="18" cy="18" fill="none" r="16" stroke-dasharray="15, 100" stroke-dashoffset="-85" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="text-lg font-bold">82</span>
+<span class="text-[8px] uppercase font-bold text-text-muted">Index</span>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span> Positive</span>
+<span class="font-bold">65%</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-warning"></span> Neutral</span>
+<span class="font-bold">20%</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-danger"></span> Negative</span>
+<span class="font-bold">15%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Latest Feedback & Support Tickets -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm overflow-hidden flex flex-col flex-1">
+<div class="p-6 border-b border-slate-200 dark:border-border-dark flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/30">
+<div class="flex items-center gap-3">
+<h2 class="font-bold text-lg">Support Tickets &amp; Feedback</h2>
+<span class="px-2 py-0.5 bg-primary/20 text-primary text-[10px] font-bold rounded-full">12 ACTIVE</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex border border-slate-200 dark:border-border-dark rounded-md overflow-hidden text-xs">
+<button class="px-3 py-1.5 bg-white dark:bg-slate-700 font-bold border-r border-slate-200 dark:border-border-dark">All</button>
+<button class="px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-text-muted">High Priority</button>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
+<!-- Ticket Card -->
+<div class="p-5 border border-slate-200 dark:border-border-dark rounded-xl relative hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between mb-3">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
+<span class="material-icons text-text-muted">person</span>
+</div>
+<div>
+<h4 class="font-bold text-sm">Marcus Sterling <span class="text-text-muted font-normal text-xs ml-2">from Blue Horizon Ltd.</span></h4>
+<div class="flex items-center gap-3 mt-1">
+<span class="flex items-center gap-1 text-[10px] text-danger font-bold uppercase">
+<span class="material-icons text-xs">sentiment_very_dissatisfied</span>
+                                                    Negative
+                                                </span>
+<span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+<span class="text-[10px] text-text-muted">Ref: #T-9821</span>
+</div>
+</div>
+</div>
+<span class="text-[10px] bg-danger/10 text-danger border border-danger/20 px-2 py-1 rounded font-bold uppercase tracking-tight">Immediate Action Required</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed mb-4">
+                                    "Extremely frustrated with the recent API downtime. Our production environment was halted for 3 hours yesterday. We need to discuss service level credits immediately."
+                                </p>
+<div class="flex items-center justify-between">
+<span class="text-xs text-text-muted italic">Received 14 minutes ago</span>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 text-xs font-bold border border-slate-200 dark:border-border-dark rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Assign</button>
+<button class="px-4 py-1.5 text-xs font-bold bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">Reply Now</button>
+</div>
+</div>
+</div>
+<!-- Ticket Card -->
+<div class="p-5 border border-slate-200 dark:border-border-dark rounded-xl relative hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between mb-3">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
+<span class="material-icons text-text-muted">person</span>
+</div>
+<div>
+<h4 class="font-bold text-sm">Sarah Jenkins <span class="text-text-muted font-normal text-xs ml-2">from OmniTech</span></h4>
+<div class="flex items-center gap-3 mt-1">
+<span class="flex items-center gap-1 text-[10px] text-warning font-bold uppercase">
+<span class="material-icons text-xs">sentiment_neutral</span>
+                                                    Neutral
+                                                </span>
+<span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+<span class="text-[10px] text-text-muted">Ref: #T-9815</span>
+</div>
+</div>
+</div>
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 text-text-muted px-2 py-1 rounded font-bold uppercase tracking-tight">Medium Priority</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed mb-4">
+                                    "Could you clarify the billing cycles for the new 'Pro Plan' add-ons? The documentation seems a bit outdated regarding the quarterly billing discounts."
+                                </p>
+<div class="flex items-center justify-between">
+<span class="text-xs text-text-muted italic">Received 2 hours ago</span>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 text-xs font-bold border border-slate-200 dark:border-border-dark rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Assign</button>
+<button class="px-4 py-1.5 text-xs font-bold bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">Reply Now</button>
+</div>
+</div>
+</div>
+<!-- Ticket Card -->
+<div class="p-5 border border-slate-200 dark:border-border-dark rounded-xl relative hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between mb-3">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
+<span class="material-icons text-text-muted">person</span>
+</div>
+<div>
+<h4 class="font-bold text-sm">David Chen <span class="text-text-muted font-normal text-xs ml-2">from Creative Hub</span></h4>
+<div class="flex items-center gap-3 mt-1">
+<span class="flex items-center gap-1 text-[10px] text-success font-bold uppercase">
+<span class="material-icons text-xs">sentiment_very_satisfied</span>
+                                                    Positive
+                                                </span>
+<span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+<span class="text-[10px] text-text-muted">Ref: #T-9801</span>
+</div>
+</div>
+</div>
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 text-text-muted px-2 py-1 rounded font-bold uppercase tracking-tight">Low Priority</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed mb-4">
+                                    "Just wanted to say the new dashboard update is fantastic! It has saved our team at least 5 hours a week in reporting. Great job team!"
+                                </p>
+<div class="flex items-center justify-between">
+<span class="text-xs text-text-muted italic">Received 5 hours ago</span>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 text-xs font-bold border border-slate-200 dark:border-border-dark rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Dismiss</button>
+<button class="px-4 py-1.5 text-xs font-bold bg-primary/20 text-primary rounded-lg hover:bg-primary/30 transition-colors">Send Thanks</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
